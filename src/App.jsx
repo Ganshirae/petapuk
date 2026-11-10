@@ -50,7 +50,7 @@ export default function App() {
       />
 
       {/* Main Page Body */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 max-w-[1600px] w-full mx-auto px-3.5 sm:px-6 lg:px-8 xl:px-12 py-4 sm:py-8 pb-28 md:pb-8">
         {needsData && !data && (
           <div className="py-16 text-center text-base text-slate-600" role="status">
             {loadError ? (

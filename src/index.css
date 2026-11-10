@@ -60,7 +60,6 @@
   height: 100%;
   background: #E4EEE8 !important;
   font-family: inherit;
-  z-index: 10;
 }
 
 .leaflet-popup-content-wrapper {
@@ -87,4 +86,39 @@
   box-shadow: 0 4px 16px rgba(19, 65, 24, 0.15) !important;
   color: #090909 !important;
   background-color: #ffffff !important;
+}
+
+/* Poligon wilayah yang dipilih: efek kedalaman 2.5D lembut & sambungan kurva halus */
+.leaflet-selected-region {
+  filter: drop-shadow(0 2px 6px rgba(19, 65, 24, 0.42));
+  stroke-linejoin: round !important;
+  stroke-linecap: round !important;
+  cursor: pointer !important;
+}
+
+.leaflet-unselected-region {
+  cursor: pointer !important;
+}
+
+/* Kursor pointer dan transisi halus interaksi wilayah pada peta */
+.leaflet-interactive {
+  cursor: pointer !important;
+  transition: fill-opacity 0.18s ease, stroke 0.18s ease, stroke-width 0.18s ease;
+}
+
+/* Hilangkan kotak focus ring pada elemen SVG/vektor peta agar hanya poligon wilayah yang tersorot */
+.leaflet-container svg,
+.leaflet-container path,
+.leaflet-interactive,
+.leaflet-selected-region,
+.leaflet-unselected-region {
+  outline: none !important;
+}
+
+.leaflet-container path:focus,
+.leaflet-container path:focus-visible,
+.leaflet-interactive:focus,
+.leaflet-interactive:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }

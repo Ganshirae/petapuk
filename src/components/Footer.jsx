@@ -4,8 +4,8 @@ import Logo from './Logo';
 
 export default function Footer({ setActivePage }) {
   return (
-    <footer className="mt-16 px-4 pb-24 md:pb-10">
-      <div className="max-w-7xl mx-auto rounded-[26px] bg-gradient-to-r from-gov-bright via-gov-soft to-white border border-gov-light p-8 sm:p-10 text-gov-dark">
+    <footer className="mt-14 px-3.5 sm:px-6 lg:px-8 xl:px-12 pb-28 md:pb-10">
+      <div className="max-w-[1600px] mx-auto rounded-[24px] sm:rounded-[26px] bg-gradient-to-r from-gov-bright via-gov-soft to-white border border-gov-light p-5 sm:p-10 xl:p-12 text-gov-dark">
         <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1.25fr] gap-8 md:gap-10">
           <div className="space-y-3">
             <Logo size="lg" />

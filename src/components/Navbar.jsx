@@ -13,7 +13,7 @@ export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gov-light">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="h-[76px] flex items-center justify-between gap-4">
           {/* Logo & Identity */}
           <button
@@ -27,9 +27,9 @@ export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }
             </span>
           </button>
 
-          {/* Desktop Navigation */}
+          {/* Desktop & Tablet Navigation */}
           <nav
-            className="hidden md:flex items-center gap-1 rounded-full bg-gov-forest p-1.5 shadow-sm"
+            className="hidden md:flex items-center gap-0.5 lg:gap-1 rounded-full bg-gov-forest p-1 lg:p-1.5 shadow-sm shrink-0"
             aria-label="Navigasi Utama"
           >
             {navTabs.map((tab) => {
@@ -41,9 +41,9 @@ export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }
                   <button
                     key={tab.id}
                     onClick={() => setActivePage(tab.id)}
-                    className="ml-1 inline-flex items-center gap-1.5 rounded-full bg-gov-bright px-5 py-2.5 text-sm font-bold text-gov-dark transition-colors hover:bg-gov-soft font-accent min-h-[42px]"
+                    className="ml-0.5 lg:ml-1 inline-flex items-center gap-1.5 rounded-full bg-gov-bright px-3.5 lg:px-5 py-2 lg:py-2.5 text-xs lg:text-sm font-bold text-gov-dark transition-colors hover:bg-gov-soft font-accent min-h-[38px] lg:min-h-[42px] shrink-0"
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                     <span>{tab.label}</span>
                   </button>
                 );
@@ -54,16 +54,16 @@ export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }
                   key={tab.id}
                   onClick={() => setActivePage(tab.id)}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium transition-colors min-h-[42px] ${
+                  className={`inline-flex items-center gap-1 lg:gap-1.5 rounded-full px-2.5 lg:px-4 py-2 lg:py-2.5 text-xs lg:text-sm font-medium transition-colors min-h-[38px] lg:min-h-[42px] shrink-0 ${
                     isActive
                       ? 'bg-gov-soft text-gov-dark font-bold shadow-sm'
                       : 'text-white/85 hover:bg-white/10 hover:text-white'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-gov-dark' : 'text-gov-soft'}`} />
+                  <Icon className={`w-3.5 h-3.5 lg:w-4 lg:h-4 ${isActive ? 'text-gov-dark' : 'text-gov-soft'}`} />
                   <span>{tab.label}</span>
                   {tab.badge > 0 && (
-                    <span className="ml-0.5 inline-flex items-center justify-center rounded-full bg-gov-pink px-2 py-0.5 text-xs font-bold leading-none text-gov-dark font-accent">
+                    <span className="ml-0.5 inline-flex items-center justify-center rounded-full bg-gov-pink px-1.5 py-0.5 text-[10px] lg:text-xs font-bold leading-none text-gov-dark font-accent">
                       {tab.badge}
                     </span>
                   )}
