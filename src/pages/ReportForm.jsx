@@ -20,8 +20,8 @@ async function stripExif(file) {
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.82));
 }
 
-const field = 'w-full px-3 py-2.5 rounded border border-slate-300 text-sm focus:border-slate-800';
-const labelCls = 'block text-xs font-bold text-slate-900 mb-1';
+const field = 'w-full px-4 py-3 rounded-xl border border-gov-border bg-white text-base focus:border-gov-emerald focus:ring-2 focus:ring-gov-soft transition-colors';
+const labelCls = 'block text-sm font-semibold text-gov-dark mb-1.5 font-accent';
 
 export default function ReportForm({ data, setActivePage, setSubmittedReport, prefilledData }) {
   const { regions, fertilizers, het } = data;
@@ -174,41 +174,40 @@ export default function ReportForm({ data, setActivePage, setSubmittedReport, pr
   const Err = ({ k }) => (errors[k] ? <p className="text-xs text-red-700 mt-1 flex items-center gap-1" role="alert"><AlertCircle className="w-3.5 h-3.5" />{errors[k]}</p> : null);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-5">
-      <header className="bg-white border border-slate-200 p-5 sm:p-6 rounded-gov space-y-2">
-        <p className="font-mono text-[11px] font-bold text-gov-forest uppercase tracking-wider">Lapor tanpa akun, tanpa NIK</p>
-        <h1 className="text-2xl font-black text-slate-900 tracking-tight">Laporkan masalah pupuk bersubsidi</h1>
-        <p className="text-sm text-slate-600">
+    <div className="max-w-3xl mx-auto space-y-6">
+      <header className="bg-gov-light border border-gov-border p-6 sm:p-7 rounded-[22px] space-y-3">
+        <h1 className="text-2xl font-bold text-gov-dark tracking-tight">Laporkan masalah pupuk bersubsidi</h1>
+        <p className="text-base text-slate-600">
           Anda akan menerima <strong>ID laporan</strong> dan <strong>kode rahasia</strong> untuk memantau tindak lanjut. Laporan tidak bisa ditutup petugas tanpa konfirmasi Anda.
         </p>
       </header>
 
-      <ol className="grid grid-cols-4 gap-2 text-center text-xs font-bold" aria-label="Langkah">
+      <ol className="grid grid-cols-4 gap-2 text-center text-xs sm:text-sm font-bold font-accent" aria-label="Langkah">
         {['Masalah', 'Lokasi', 'Rincian & bukti', 'Kirim'].map((t, i) => (
           <li key={t} aria-current={step === i + 1 ? 'step' : undefined}
-            className={`py-2 rounded border ${step === i + 1 ? 'bg-gov-forest text-white border-gov-forest' : step > i + 1 ? 'bg-gov-light text-gov-forest border-gov-border' : 'bg-white text-slate-500 border-slate-200'}`}>
+            className={`py-2.5 rounded-xl border transition-colors ${step === i + 1 ? 'bg-gov-dark text-white border-gov-dark shadow-sm' : step > i + 1 ? 'bg-gov-soft text-gov-dark border-gov-border' : 'bg-white text-slate-500 border-gov-light'}`}>
             {i + 1}. {t}
           </li>
         ))}
       </ol>
 
-      <form onSubmit={submit} className="bg-white border border-slate-200 rounded-gov p-5 sm:p-6 space-y-5" noValidate>
+      <form onSubmit={submit} className="bg-white border border-gov-light rounded-[22px] p-6 sm:p-8 space-y-6" noValidate>
         {step === 1 && (
           <>
             <fieldset>
-              <legend className={labelCls}>Apa masalahnya? <span className="text-red-600">*</span></legend>
-              <div className="space-y-2">
+              <legend className="block text-base font-bold text-gov-dark mb-3 font-accent">Apa masalahnya? <span className="text-red-600">*</span></legend>
+              <div className="space-y-2.5">
                 {REPORT_CATEGORIES.map((c) => (
-                  <label key={c.id} className={`flex gap-3 p-3 border rounded cursor-pointer ${f.category === c.id ? 'border-gov-forest bg-gov-light/60 border-l-4' : 'border-slate-200 hover:border-slate-400'}`}>
+                  <label key={c.id} className={`flex gap-3.5 p-4 border rounded-xl cursor-pointer transition-colors ${f.category === c.id ? 'border-gov-emerald bg-gov-light/70 border-l-4' : 'border-gov-light hover:border-gov-border'}`}>
                     <input type="radio" name="category" value={c.id} checked={f.category === c.id} onChange={set('category')} className="mt-1 text-gov-forest" />
-                    <span><strong className="text-sm text-slate-900 block">{c.title}</strong><span className="text-xs text-slate-600">{c.desc}</span></span>
+                    <span><strong className="text-base text-gov-dark block">{c.title}</strong><span className="text-sm text-slate-600 mt-0.5 block">{c.desc}</span></span>
                   </label>
                 ))}
               </div>
               <Err k="category" />
             </fieldset>
             {needsFert && (
-              <div>
+              <div className="pt-2">
                 <label htmlFor="fert" className={labelCls}>Jenis pupuk <span className="text-red-600">*</span></label>
                 <select id="fert" value={f.fertilizerId} onChange={set('fertilizerId')} className={field}>
                   {fertilizers.filter((x) => hetOf(x.id)).map((x) => (
@@ -266,7 +265,7 @@ export default function ReportForm({ data, setActivePage, setSubmittedReport, pr
               <div>
                 <label htmlFor="kios" className={labelCls}>Nama kios/pengecer</label>
                 <input id="kios" value={f.kioskName} onChange={set('kioskName')} maxLength={150} placeholder="mis. UD Tani Makmur" className={field} />
-                <p className="text-[11px] text-slate-500 mt-1">Nama kios tidak ditampilkan publik sebelum laporan diverifikasi.</p>
+                <p className="text-xs text-slate-500 mt-1.5">Nama kios tidak ditampilkan publik sebelum laporan diverifikasi.</p>
               </div>
             </div>
           </>
@@ -287,7 +286,7 @@ export default function ReportForm({ data, setActivePage, setSubmittedReport, pr
               </div>
             </div>
             {needsFert && h && priceNum > 0 && (
-              <p className={`text-xs p-3 rounded border ${overBy ? 'bg-red-50 border-red-200 text-red-800' : 'bg-gov-light border-gov-border text-gov-forest'}`} aria-live="polite">
+              <p className={`text-sm p-3.5 rounded-xl border ${overBy ? 'bg-red-50 border-red-200 text-red-800' : 'bg-gov-light border-gov-border text-gov-forest'}`} aria-live="polite">
                 {overBy
                   ? `Lebih mahal ${rp(overBy)}/kg dari HET ${rp(h.price_per_kg)}/kg${Number(f.quantityKg) > 0 ? `, total kelebihan ${rp(overBy * Number(f.quantityKg))}` : ''}.`
                   : `Sesuai HET (${rp(h.price_per_kg)}/kg).`}
@@ -297,27 +296,27 @@ export default function ReportForm({ data, setActivePage, setSubmittedReport, pr
               <label htmlFor="desc" className={labelCls}>Kronologi kejadian <span className="text-red-600">*</span></label>
               <textarea id="desc" rows={5} value={f.description} onChange={set('description')} maxLength={2000} className={field}
                 placeholder="Ceritakan apa yang terjadi, kapan, siapa yang melayani, dan apa alasan yang diberikan kios." />
-              <p className="text-[11px] text-slate-500 text-right">{f.description.trim().length}/2000</p>
+              <p className="text-xs text-slate-500 text-right mt-1">{f.description.trim().length}/2000</p>
               <Err k="description" />
             </div>
             <div>
               <span className={labelCls}>Foto bukti (nota, kemasan, papan harga), opsional</span>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2.5">
                 {photos.map((p, i) => (
-                  <div key={p.url} className="relative w-24 h-24 rounded border border-slate-300 overflow-hidden">
+                  <div key={p.url} className="relative w-28 h-28 rounded-xl border border-gov-border overflow-hidden">
                     <img src={p.url} alt={`Bukti ${i + 1}`} className="w-full h-full object-cover" />
                     <button type="button" onClick={() => setPhotos((ps) => ps.filter((_, j) => j !== i))} aria-label={`Hapus foto ${i + 1}`}
-                      className="absolute top-1 right-1 p-1 rounded bg-white/90 text-red-700"><Trash2 className="w-3.5 h-3.5" /></button>
+                      className="absolute top-1.5 right-1.5 p-1.5 rounded-lg bg-white/90 text-red-700 shadow-sm hover:bg-white"><Trash2 className="w-4 h-4" /></button>
                   </div>
                 ))}
                 {photos.length < MAX_PHOTOS && (
-                  <label className="w-24 h-24 flex flex-col items-center justify-center gap-1 border-2 border-dashed border-slate-300 rounded cursor-pointer hover:border-slate-700 text-[11px] text-slate-600">
-                    <Upload className="w-5 h-5" />Tambah
+                  <label className="w-28 h-28 flex flex-col items-center justify-center gap-1.5 border-2 border-dashed border-gov-border rounded-xl cursor-pointer hover:border-gov-emerald text-xs text-slate-600 hover:bg-gov-light/30 transition-colors">
+                    <Upload className="w-5 h-5 text-gov-forest" />Tambah
                     <input type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={addPhotos} className="sr-only" />
                   </label>
                 )}
               </div>
-              <p className="text-[11px] text-slate-500 mt-1">Maks. {MAX_PHOTOS} foto. Data lokasi (EXIF) di dalam foto dihapus otomatis sebelum dikirim. Foto hanya bisa dilihat petugas.</p>
+              <p className="text-xs text-slate-500 mt-2">Maks. {MAX_PHOTOS} foto. Data lokasi (EXIF) di dalam foto dihapus otomatis sebelum dikirim. Foto hanya bisa dilihat petugas.</p>
               <Err k="photos" />
             </div>
           </>
@@ -325,37 +324,37 @@ export default function ReportForm({ data, setActivePage, setSubmittedReport, pr
 
         {step === 4 && (
           <>
-            <dl className="text-xs grid grid-cols-[8rem_1fr] gap-x-3 gap-y-1.5 p-3 bg-slate-50 border border-slate-200 rounded">
-              <dt className="text-slate-500">Masalah</dt><dd className="font-medium">{REPORT_CATEGORIES.find((c) => c.id === f.category)?.title}</dd>
-              {needsFert && <><dt className="text-slate-500">Pupuk</dt><dd className="font-medium">{fertilizers.find((x) => x.id === f.fertilizerId)?.name}</dd></>}
-              <dt className="text-slate-500">Lokasi</dt><dd className="font-medium">{[f.desa, f.kecamatan, hasKabkotaData ? regions.find((r) => r.code === f.kabkota)?.name : f.kabkotaText, regions.find((r) => r.code === f.province)?.name].filter(Boolean).join(', ')}</dd>
-              <dt className="text-slate-500">Tanggal</dt><dd className="font-medium">{f.incidentDate}</dd>
-              {f.kioskName && <><dt className="text-slate-500">Kios</dt><dd className="font-medium">{f.kioskName}</dd></>}
-              {priceNum > 0 && <><dt className="text-slate-500">Harga/kg</dt><dd className="font-medium">{rp(priceNum)}{h && ` (HET ${rp(h.price_per_kg)})`}</dd></>}
-              <dt className="text-slate-500">Foto</dt><dd className="font-medium">{photos.length} berkas</dd>
+            <dl className="text-sm grid grid-cols-[9rem_1fr] gap-x-4 gap-y-2 p-4 bg-gov-light/60 border border-gov-border rounded-xl">
+              <dt className="text-slate-500">Masalah</dt><dd className="font-semibold text-gov-dark">{REPORT_CATEGORIES.find((c) => c.id === f.category)?.title}</dd>
+              {needsFert && <><dt className="text-slate-500">Pupuk</dt><dd className="font-semibold text-gov-dark">{fertilizers.find((x) => x.id === f.fertilizerId)?.name}</dd></>}
+              <dt className="text-slate-500">Lokasi</dt><dd className="font-semibold text-gov-dark">{[f.desa, f.kecamatan, hasKabkotaData ? regions.find((r) => r.code === f.kabkota)?.name : f.kabkotaText, regions.find((r) => r.code === f.province)?.name].filter(Boolean).join(', ')}</dd>
+              <dt className="text-slate-500">Tanggal</dt><dd className="font-semibold text-gov-dark">{f.incidentDate}</dd>
+              {f.kioskName && <><dt className="text-slate-500">Kios</dt><dd className="font-semibold text-gov-dark">{f.kioskName}</dd></>}
+              {priceNum > 0 && <><dt className="text-slate-500">Harga/kg</dt><dd className="font-semibold text-gov-dark">{rp(priceNum)}{h && ` (HET ${rp(h.price_per_kg)})`}</dd></>}
+              <dt className="text-slate-500">Foto</dt><dd className="font-semibold text-gov-dark">{photos.length} berkas</dd>
             </dl>
             <div>
               <label htmlFor="contact" className={labelCls}>Kontak (opsional): nomor WA atau email</label>
               <input id="contact" value={contact} onChange={(e) => setContact(e.target.value)} maxLength={100} autoComplete="off" className={field} />
-              <p className="text-[11px] text-slate-500 mt-1 flex gap-1"><Lock className="w-3 h-3 mt-0.5 shrink-0" />Hanya dilihat petugas jika perlu klarifikasi. Tidak pernah ditampilkan publik. Kosongkan jika ingin anonim penuh.</p>
+              <p className="text-xs text-slate-500 mt-1.5 flex gap-1.5 items-center"><Lock className="w-3.5 h-3.5 shrink-0 text-slate-400" />Hanya dilihat petugas jika perlu klarifikasi. Tidak pernah ditampilkan publik. Kosongkan jika ingin anonim penuh.</p>
             </div>
-            <label className="flex gap-2 text-xs text-slate-700">
-              <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-0.5" />
+            <label className="flex items-start gap-2.5 text-sm text-slate-700 cursor-pointer p-1">
+              <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} className="mt-1 w-4 h-4 rounded text-gov-forest focus:ring-gov-emerald" />
               <span>Saya menyatakan laporan ini sesuai kejadian sebenarnya dan memahami bahwa laporan palsu dapat ditolak.</span>
             </label>
             <Err k="agree" />
-            {submitError && <p className="text-sm text-red-800 bg-red-50 border border-red-200 rounded p-3 flex gap-2" role="alert"><ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />{submitError}</p>}
+            {submitError && <p className="text-sm text-red-800 bg-red-50 border border-red-200 rounded-xl p-3.5 flex gap-2" role="alert"><ShieldAlert className="w-5 h-5 shrink-0 text-red-700 mt-0.5" />{submitError}</p>}
           </>
         )}
 
-        <div className="flex justify-between gap-3 pt-2 border-t border-slate-100">
+        <div className="flex justify-between gap-3 pt-3 border-t border-gov-light">
           {step > 1 ? (
-            <button type="button" onClick={() => go(-1)} className="inline-flex items-center gap-1 px-4 py-2.5 rounded border border-slate-300 text-sm font-bold"><ChevronLeft className="w-4 h-4" />Kembali</button>
+            <button type="button" onClick={() => go(-1)} className="inline-flex items-center gap-1.5 px-5 py-3 rounded-xl border border-gov-border text-gov-dark text-base font-bold hover:bg-gov-light transition-colors min-h-[48px]"><ChevronLeft className="w-4 h-4" />Kembali</button>
           ) : <span />}
           {step < 4 ? (
-            <button type="button" onClick={() => go(1)} className="inline-flex items-center gap-1 px-5 py-2.5 rounded bg-slate-900 text-white text-sm font-bold">Lanjut<ChevronRight className="w-4 h-4" /></button>
+            <button type="button" onClick={() => go(1)} className="inline-flex items-center gap-1.5 px-6 py-3 rounded-xl bg-gov-forest hover:bg-gov-hover text-white text-base font-bold transition-colors min-h-[48px]">Lanjut<ChevronRight className="w-4 h-4" /></button>
           ) : (
-            <button type="submit" disabled={submitting} className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-gov-forest hover:bg-gov-hover text-white text-sm font-bold disabled:opacity-60">
+            <button type="submit" disabled={submitting} className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gov-forest hover:bg-gov-hover text-white text-base font-bold disabled:opacity-60 min-h-[48px] transition-colors">
               <Send className="w-4 h-4" />{submitting ? 'Mengirim…' : 'Kirim laporan'}
             </button>
           )}

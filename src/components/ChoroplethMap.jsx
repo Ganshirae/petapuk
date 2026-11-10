@@ -3,13 +3,13 @@ import L from 'leaflet';
 
 // Skala hijau 5 kelas untuk % realisasi (aman buta warna: satu hue, beda terang).
 export const PCT_CLASSES = [
-  { min: 95, color: '#114B2C', label: '≥ 95%' },
-  { min: 85, color: '#15803D', label: '85–95%' },
-  { min: 75, color: '#4ADE80', label: '75–85%' },
-  { min: 60, color: '#BBF7D0', label: '60–75%' },
-  { min: -Infinity, color: '#F0FDF4', label: '< 60%' }
+  { min: 95, color: '#134118', label: '≥ 95%' },
+  { min: 85, color: '#288132', label: '85–95%' },
+  { min: 75, color: '#90FF4B', label: '75–85%' },
+  { min: 60, color: '#BEFB98', label: '60–75%' },
+  { min: -Infinity, color: '#E4EEE8', label: '< 60%' }
 ];
-const NO_DATA = '#E2E8F0';
+const NO_DATA = '#E5E5E5';
 
 export const pctColor = (v) => (v === null || v === undefined ? NO_DATA : PCT_CLASSES.find((c) => v >= c.min).color);
 
@@ -18,7 +18,7 @@ export const pctColor = (v) => (v === null || v === undefined ? NO_DATA : PCT_CL
  * geojson: FeatureCollection dengan properties.kode
  * values: { [kode]: { pct, label } }
  */
-export default function ChoroplethMap({ geojson, values, selected, onSelect, height = 380 }) {
+export default function ChoroplethMap({ geojson, values, selected, onSelect, height = 420 }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const layerRef = useRef(null);
@@ -55,8 +55,8 @@ export default function ChoroplethMap({ geojson, values, selected, onSelect, hei
         const isSel = f.properties.kode === selected;
         return {
           fillColor: pctColor(values[f.properties.kode]?.pct),
-          fillOpacity: 0.9,
-          color: isSel ? '#0F172A' : '#FFFFFF',
+          fillOpacity: 0.92,
+          color: isSel ? '#090909' : '#FFFFFF',
           weight: isSel ? 2.5 : 0.8
         };
       },
@@ -73,5 +73,5 @@ export default function ChoroplethMap({ geojson, values, selected, onSelect, hei
     layerRef.current = layer;
   }, [geojson, values, selected, onSelect]);
 
-  return <div ref={containerRef} style={{ height }} className="w-full rounded border border-slate-200 bg-slate-50" role="img" aria-label="Peta persentase realisasi penyaluran pupuk bersubsidi per wilayah" />;
+  return <div ref={containerRef} style={{ height }} className="w-full rounded-2xl border-2 border-gov-border bg-gov-light overflow-hidden shadow-sm" role="img" aria-label="Peta persentase realisasi penyaluran pupuk bersubsidi per wilayah" />;
 }

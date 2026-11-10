@@ -1,61 +1,37 @@
 import React from 'react';
 import { LayoutDashboard, Send, Search, BookmarkCheck, ClipboardCheck } from 'lucide-react';
+import Logo from './Logo';
 
 export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }) {
   const navTabs = [
-    { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'eligibility', label: 'Cek Hak Subsidi', icon: ClipboardCheck },
-    { id: 'track', label: 'Lacak Laporan', icon: Search },
+    { id: 'home', label: 'PetaData', icon: LayoutDashboard },
+    { id: 'eligibility', label: 'Daftar Subsidi', icon: ClipboardCheck },
+    { id: 'track', label: 'Cek Laporan', icon: Search },
     { id: 'my-reports', label: 'Laporan Saya', icon: BookmarkCheck, badge: myReportsCount },
-    { id: 'report', label: 'Lapor', icon: Send, isAction: true }
+    { id: 'report', label: 'Buat Laporan', icon: Send, isAction: true }
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
-      {/* Top Official Government & Transparency Ribbon */}
-      <div className="bg-slate-900 text-slate-300 text-[11px] font-mono tracking-wider px-4 sm:px-8 py-1.5 flex flex-wrap items-center justify-between border-b border-slate-800">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span className="font-bold text-white uppercase tracking-wider">PORTAL KETERBUKAAN PUBLIK</span>
-          <span className="text-slate-500">•</span>
-          <span className="text-slate-300">NASIONAL 38 PROVINSI • DETAIL NTB</span>
-        </div>
-        <div className="hidden sm:flex items-center gap-4 text-[10px] text-slate-400">
-          <span>SUMBER DATA: SATU DATA KEMENTAN & SATU DATA NTB</span>
-          <span>•</span>
-          <span className="text-emerald-400 font-bold">AKSES PUBLIK TANPA NIK / KTP</span>
-        </div>
-      </div>
-
-      {/* Main Navigation Header */}
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-gov-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="h-16 flex items-center justify-between gap-4">
+        <div className="h-[76px] flex items-center justify-between gap-4">
           {/* Logo & Identity */}
           <button
             onClick={() => setActivePage('home')}
-            className="flex items-center gap-3 text-left focus:outline-none group"
-            aria-label="Kembali ke Beranda PEPUK"
+            className="flex items-center gap-3 text-left focus:outline-none group shrink-0"
+            aria-label="Kembali ke PetaData PetaPuk"
           >
-            <div className="w-9 h-9 rounded bg-gov-forest text-white flex items-center justify-center font-extrabold text-sm border border-gov-dark shadow-sm">
-              PP
-            </div>
-            <div>
-              <div className="flex items-baseline gap-2">
-                <span className="font-black text-lg tracking-tight text-slate-900">
-                  PE<span className="text-gov-forest">PUK</span>
-                </span>
-                <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200 font-bold">
-                  BETA
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
-                Transparansi Alokasi, Realisasi & Harga Acuan Pupuk Bersubsidi
-              </p>
-            </div>
+            <Logo size="md" className="transition-transform group-hover:-translate-y-0.5" />
+            <span className="hidden xl:block text-xs leading-tight text-slate-500 font-accent max-w-[14rem] border-l border-gov-light pl-3">
+              Transparansi alokasi, realisasi &amp; HET pupuk bersubsidi
+            </span>
           </button>
 
-          {/* Desktop Tab Navigation (Clean, Sharp Underlines - Anti AI-Slop) */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2 h-full" aria-label="Navigasi Utama">
+          {/* Desktop Navigation */}
+          <nav
+            className="hidden md:flex items-center gap-1 rounded-full bg-gov-forest p-1.5 shadow-sm"
+            aria-label="Navigasi Utama"
+          >
             {navTabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activePage === tab.id;
@@ -65,10 +41,10 @@ export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }
                   <button
                     key={tab.id}
                     onClick={() => setActivePage(tab.id)}
-                    className="ml-2 inline-flex items-center gap-2 px-3.5 py-2 rounded bg-gov-forest hover:bg-gov-hover text-white text-xs font-bold transition-colors shadow-sm"
+                    className="ml-1 inline-flex items-center gap-1.5 rounded-full bg-gov-bright px-5 py-2.5 text-sm font-bold text-gov-dark transition-colors hover:bg-gov-soft font-accent min-h-[42px]"
                   >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>Lapor Masalah</span>
+                    <Icon className="w-4 h-4" />
+                    <span>{tab.label}</span>
                   </button>
                 );
               }
@@ -77,16 +53,17 @@ export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }
                 <button
                   key={tab.id}
                   onClick={() => setActivePage(tab.id)}
-                  className={`relative h-full flex items-center gap-1.5 px-3 text-xs font-bold transition-colors border-b-2 ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium transition-colors min-h-[42px] ${
                     isActive
-                      ? 'border-gov-forest text-gov-forest bg-slate-50/60'
-                      : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'
+                      ? 'bg-gov-soft text-gov-dark font-bold shadow-sm'
+                      : 'text-white/85 hover:bg-white/10 hover:text-white'
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5 text-slate-500" />
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-gov-dark' : 'text-gov-soft'}`} />
                   <span>{tab.label}</span>
                   {tab.badge > 0 && (
-                    <span className="ml-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-mono font-bold leading-none text-slate-900 bg-amber-border rounded">
+                    <span className="ml-0.5 inline-flex items-center justify-center rounded-full bg-gov-pink px-2 py-0.5 text-xs font-bold leading-none text-gov-dark font-accent">
                       {tab.badge}
                     </span>
                   )}
@@ -97,9 +74,9 @@ export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }
         </div>
       </div>
 
-      {/* Mobile Sticky Bottom Nav (High contrast, clean lines) */}
+      {/* Mobile Sticky Bottom Nav */}
       <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-2 py-1 shadow-md"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gov-light px-2 pb-[env(safe-area-inset-bottom)] pt-1 shadow-[0_-6px_24px_-12px_rgba(19,65,24,0.35)]"
         aria-label="Navigasi Seluler"
       >
         <div className="grid grid-cols-5 gap-1 items-center max-w-md mx-auto text-center">
@@ -110,18 +87,19 @@ export default function Navbar({ activePage, setActivePage, myReportsCount = 0 }
               <button
                 key={tab.id}
                 onClick={() => setActivePage(tab.id)}
-                className={`py-1.5 px-1 flex flex-col items-center justify-center min-h-[48px] rounded transition-colors ${
+                aria-current={isActive ? 'page' : undefined}
+                className={`relative py-2 px-1 flex flex-col items-center justify-center min-h-[52px] rounded-xl transition-colors ${
                   isActive
-                    ? 'text-gov-forest font-bold bg-gov-light'
-                    : 'text-slate-500 hover:text-slate-800'
+                    ? 'text-gov-dark font-bold bg-gov-soft'
+                    : 'text-slate-500 hover:text-gov-forest hover:bg-gov-light/60'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${tab.isAction ? 'text-gov-forest' : ''}`} />
-                <span className="text-[10px] mt-0.5 tracking-tight truncate max-w-[62px]">
+                <Icon className={`w-5 h-5 ${tab.isAction ? 'text-gov-forest' : ''}`} />
+                <span className="text-xs mt-0.5 tracking-tight truncate max-w-[68px] font-accent">
                   {tab.label.split(' ')[0]}
                 </span>
                 {tab.badge > 0 && (
-                  <span className="absolute top-1 right-2 w-3.5 h-3.5 text-[9px] font-mono font-bold text-slate-900 bg-amber-border rounded-full flex items-center justify-center">
+                  <span className="absolute top-0.5 right-1 w-4 h-4 text-[11px] font-bold text-gov-dark bg-gov-pink rounded-full flex items-center justify-center font-accent">
                     {tab.badge}
                   </span>
                 )}

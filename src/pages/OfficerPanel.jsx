@@ -43,13 +43,13 @@ export default function OfficerPanel() {
 
   if (!session) {
     return (
-      <form onSubmit={login} className="max-w-sm mx-auto bg-white border border-slate-200 rounded-gov p-6 space-y-3">
-        <h1 className="text-xl font-black text-slate-900">Masuk petugas</h1>
+      <form onSubmit={login} className="max-w-sm mx-auto bg-white border border-gov-light rounded-[22px] p-6 space-y-3">
+        <h1 className="text-xl font-bold text-gov-dark">Masuk petugas</h1>
         <p className="text-xs text-slate-600">Khusus verifikator instansi. Akun dibuat oleh admin.</p>
-        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="username" className="w-full px-3 py-2.5 rounded border border-slate-300 text-sm" />
-        <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Kata sandi" autoComplete="current-password" className="w-full px-3 py-2.5 rounded border border-slate-300 text-sm" />
+        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="username" className="w-full px-3 py-2.5 rounded-lg border border-gov-border text-sm focus:border-gov-emerald focus:ring-2 focus:ring-gov-soft" />
+        <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Kata sandi" autoComplete="current-password" className="w-full px-3 py-2.5 rounded-lg border border-gov-border text-sm focus:border-gov-emerald focus:ring-2 focus:ring-gov-soft" />
         {error && <p className="text-xs text-red-700" role="alert">{error}</p>}
-        <button className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded bg-slate-900 text-white text-sm font-bold"><LogIn className="w-4 h-4" />Masuk</button>
+        <button className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gov-forest hover:bg-gov-hover text-white text-sm font-bold transition-colors"><LogIn className="w-4 h-4" />Masuk</button>
       </form>
     );
   }
@@ -57,7 +57,7 @@ export default function OfficerPanel() {
   if (officer === undefined) return <p className="text-center text-sm text-slate-500 py-10">Memuat…</p>;
   if (officer === null) {
     return (
-      <div className="max-w-sm mx-auto bg-white border border-slate-200 rounded-gov p-6 space-y-3 text-sm">
+      <div className="max-w-sm mx-auto bg-white border border-gov-light rounded-[22px] p-6 space-y-3 text-sm">
         <p>Akun <strong>{session.user.email}</strong> belum terdaftar sebagai petugas.</p>
         <button onClick={() => supabase.auth.signOut()} className="px-4 py-2 rounded border border-slate-300 font-bold">Keluar</button>
       </div>
@@ -90,9 +90,9 @@ function Queue({ officer }) {
   const now = Date.now();
   return (
     <div className="space-y-4">
-      <header className="bg-white border border-slate-200 rounded-gov p-4 flex flex-wrap items-center justify-between gap-3">
+      <header className="bg-gov-light border border-gov-border rounded-[22px] p-4 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-lg font-black text-slate-900">Antrian laporan</h1>
+          <h1 className="text-lg font-bold text-gov-dark">Antrian laporan</h1>
           <p className="text-xs text-slate-600">{officer.name} • {officer.agency}</p>
         </div>
         <div className="flex items-center gap-2 text-xs">
@@ -110,10 +110,10 @@ function Queue({ officer }) {
         {reports.map((r) => {
           const overdue = r.due_at && new Date(r.due_at).getTime() < now && !['selesai', 'ditolak'].includes(r.status);
           return (
-            <li key={r.id} className={`bg-white border rounded-gov ${overdue ? 'border-red-300' : 'border-slate-200'}`}>
-              <button onClick={() => setOpenId(openId === r.id ? null : r.id)} className="w-full text-left p-4 grid sm:grid-cols-[1fr_auto] gap-2">
+            <li key={r.id} className={`bg-white border rounded-[18px] ${overdue ? 'border-red-300' : 'border-gov-light'}`}>
+              <button onClick={() => setOpenId(openId === r.id ? null : r.id)} className="w-full text-left p-4 grid sm:grid-cols-[1fr_auto] gap-2 rounded-[18px]">
                 <div>
-                  <p className="font-mono font-bold text-sm">{r.public_id}</p>
+                  <p className="font-accent font-bold text-sm text-gov-dark">{r.public_id}</p>
                   <p className="text-xs text-slate-600">{REPORT_CATEGORIES.find((c) => c.id === r.category)?.title} • {[r.kabkota_name, r.regions?.name].filter(Boolean).join(', ')}</p>
                 </div>
                 <div className="text-xs sm:text-right">
@@ -156,7 +156,7 @@ function Detail({ report: r, onDone }) {
   };
 
   return (
-    <div className="border-t border-slate-200 p-4 grid lg:grid-cols-2 gap-4 text-xs">
+    <div className="border-t border-gov-light p-4 grid lg:grid-cols-2 gap-4 text-xs">
       <dl className="grid grid-cols-[7rem_1fr] gap-x-2 gap-y-1">
         <dt className="text-slate-500">Lokasi</dt><dd>{[r.desa, r.kecamatan, r.kabkota_name, r.regions?.name].filter(Boolean).join(', ')}</dd>
         <dt className="text-slate-500">Kejadian</dt><dd>{r.incident_date}</dd>

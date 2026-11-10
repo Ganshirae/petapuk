@@ -4,31 +4,41 @@
 
 @layer base {
   :root {
-    --gov-forest: #114B2C;
-    --gov-dark: #0A2518;
-    --slate-900: #0F172A;
-    --slate-700: #334155;
-    --slate-200: #E2E8F0;
-    --bg-app: #F8FAFC;
+    --gov-forest: #134118;
+    --gov-dark: #134118;
+    --gov-emerald: #288132;
+    --gov-bright: #90FF4B;
+    --gov-soft: #BEFB98;
+    --gov-pale: #E4EEE8;
+    --gov-pink: #FF66A3;
+    --slate-900: #141C17;
+    --slate-700: #3A463C;
+    --slate-200: #E5E5E5;
+    --bg-app: #F7FAF7;
   }
 
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
-    color: #0F172A;
-    background-color: #F8FAFC;
+    color: #090909;
+    background-color: #F7FAF7;
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
+    font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
     letter-spacing: -0.01em;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
   }
 
   /* Accessible sharp focus ring */
   *:focus-visible {
-    outline: 2px solid #114B2C;
+    outline: 2px solid #288132;
     outline-offset: 2px;
   }
 }
@@ -48,20 +58,33 @@
 .leaflet-container {
   width: 100%;
   height: 100%;
-  background: #E5EFF5 !important;
+  background: #E4EEE8 !important;
   font-family: inherit;
   z-index: 10;
 }
 
 .leaflet-popup-content-wrapper {
-  border-radius: 4px !important;
-  border: 1px solid #CBD5E1 !important;
-  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.1) !important;
+  border-radius: 14px !important;
+  border: 1px solid #B9E9B0 !important;
+  box-shadow: 0 10px 30px -8px rgba(19, 65, 24, 0.25) !important;
   padding: 2px !important;
 }
 
 .leaflet-popup-content {
-  margin: 8px 12px !important;
-  font-size: 13px !important;
+  margin: 10px 14px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* Tooltip on hover/touch for map regions */
+.leaflet-tooltip {
+  font-family: inherit !important;
+  font-size: 14px !important;
   line-height: 1.4 !important;
+  border-radius: 10px !important;
+  padding: 8px 12px !important;
+  border: 1px solid #B9E9B0 !important;
+  box-shadow: 0 4px 16px rgba(19, 65, 24, 0.15) !important;
+  color: #090909 !important;
+  background-color: #ffffff !important;
 }

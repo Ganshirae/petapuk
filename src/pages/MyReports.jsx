@@ -14,39 +14,39 @@ export default function MyReports({ setActivePage, setLookupCode }) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-5">
-      <header className="bg-white border border-slate-200 p-5 sm:p-6 rounded-gov space-y-2">
-        <div className="flex items-center justify-between gap-3">
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Laporan Saya</h1>
+    <div className="max-w-3xl mx-auto space-y-6">
+      <header className="bg-gov-light border border-gov-border p-6 sm:p-7 rounded-[22px] space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-2xl font-bold text-gov-dark tracking-tight">Laporan Saya</h1>
           {list.length > 0 && (
-            <button onClick={handleClear} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold text-red-700 border border-red-300 hover:bg-red-50">
-              <Trash2 className="w-3.5 h-3.5" />Hapus dari perangkat
+            <button onClick={handleClear} className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-bold text-red-700 border border-red-300 hover:bg-red-50 transition-colors">
+              <Trash2 className="w-4 h-4" />Hapus dari perangkat
             </button>
           )}
         </div>
-        <p className="text-sm text-slate-600">Disimpan hanya di peramban perangkat ini, bukan di server. Jika memakai HP bersama, hapus setelah dicatat.</p>
+        <p className="text-base text-slate-600">Disimpan hanya di peramban perangkat ini, bukan di server. Jika memakai HP bersama, hapus setelah dicatat.</p>
       </header>
 
       {list.length === 0 ? (
-        <div className="bg-white border border-slate-200 rounded-gov p-10 text-center space-y-3">
-          <FileText className="w-10 h-10 text-slate-300 mx-auto" />
-          <p className="text-sm text-slate-600">Belum ada laporan dari perangkat ini.</p>
-          <button onClick={() => setActivePage('report')} className="px-4 py-2 rounded bg-gov-forest text-white text-sm font-bold">Buat laporan</button>
+        <div className="bg-white border border-gov-light rounded-[22px] p-12 text-center space-y-4">
+          <FileText className="w-12 h-12 text-slate-300 mx-auto" />
+          <p className="text-base text-slate-600">Belum ada laporan dari perangkat ini.</p>
+          <button onClick={() => setActivePage('report')} className="px-5 py-3 rounded-xl bg-gov-forest hover:bg-gov-hover text-white text-base font-bold transition-colors">Buat laporan</button>
         </div>
       ) : (
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {list.map((item) => (
-            <li key={item.publicId} className="bg-white border border-slate-200 rounded-gov p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="space-y-0.5">
-                <p className="font-mono font-black text-slate-900">{item.publicId}</p>
-                <p className="text-xs text-slate-600">{REPORT_CATEGORIES.find((c) => c.id === item.category)?.title} • {item.regionName}</p>
-                <p className="text-[11px] text-slate-500">Kode: <span className="font-mono font-bold">{item.secretCode}</span> • {new Date(item.createdAt).toLocaleDateString('id-ID', { dateStyle: 'medium' })}</p>
+            <li key={item.publicId} className="bg-white border border-gov-light rounded-[20px] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <p className="font-accent text-lg font-bold text-gov-dark">{item.publicId}</p>
+                <p className="text-sm font-medium text-slate-700">{REPORT_CATEGORIES.find((c) => c.id === item.category)?.title} • {item.regionName}</p>
+                <p className="text-xs text-slate-500">Kode: <span className="font-accent font-bold text-sm text-gov-dark">{item.secretCode}</span> • {new Date(item.createdAt).toLocaleDateString('id-ID', { dateStyle: 'medium' })}</p>
               </div>
               <button
                 onClick={() => { setLookupCode({ publicId: item.publicId, secretCode: item.secretCode }); setActivePage('track'); }}
-                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded bg-gov-forest hover:bg-gov-hover text-white text-xs font-bold"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gov-forest hover:bg-gov-hover text-white text-sm font-bold transition-colors min-h-[42px]"
               >
-                <Search className="w-3.5 h-3.5" />Lacak
+                <Search className="w-4 h-4" />Lacak
               </button>
             </li>
           ))}

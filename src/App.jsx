@@ -41,7 +41,7 @@ export default function App() {
   const needsData = ['home', 'report'].includes(activePage);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F6F8F7] text-[#1A1F1C]">
+    <div className="min-h-screen flex flex-col bg-[#F7FAF7] text-[#090909]">
       {/* Top Navbar & Mobile Bottom Bar */}
       <Navbar
         activePage={activePage}
@@ -52,9 +52,9 @@ export default function App() {
       {/* Main Page Body */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {needsData && !data && (
-          <div className="py-16 text-center text-sm text-slate-600" role="status">
+          <div className="py-16 text-center text-base text-slate-600" role="status">
             {loadError ? (
-              <p className="text-red-700">Gagal memuat data: {loadError}. Periksa koneksi lalu muat ulang halaman.</p>
+              <p className="text-red-700 font-semibold">Gagal memuat data: {loadError}. Periksa koneksi lalu muat ulang halaman.</p>
             ) : 'Memuat data resmi…'}
           </div>
         )}
