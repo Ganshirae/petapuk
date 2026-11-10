@@ -17,7 +17,7 @@ PEPUK melengkapi, tidak menggantikan, sistem resmi (e-RDKK, i-Pubers, Cek Subsid
 
 | Fitur | Isi |
 | :--- | :--- |
-| **Dashboard** | Filter cakupan (nasional/NTB), tahun, dan jenis pupuk; KPI; peta choropleth; grafik tren, per jenis pupuk, dan peringkat wilayah; tabel wilayah; tabel HET dan kalkulator harga; statistik tindak lanjut laporan; kanal resmi; unduh CSV. Setiap angka disertai sumber. |
+| **Dashboard** | Filter wilayah (nasional, 38 provinsi, 10 kab/kota NTB) dengan auto-zoom peta, tahun, dan jenis pupuk; KPI; peta choropleth interaktif; grafik tren, per jenis pupuk, dan peringkat wilayah; tabel wilayah; tabel HET dan kalkulator harga; statistik tindak lanjut laporan; kanal resmi; unduh CSV. Setiap angka disertai sumber. |
 | **Lapor** | 7 kategori masalah, 4 langkah, tanpa akun/NIK; perbandingan otomatis dengan HET; maks. 3 foto (EXIF dihapus di browser); kontak opsional. Menghasilkan ID publik (`PP-2026-XXXXXX`) dan kode rahasia. |
 | **Lacak** | Tahapan status, tenggat per tahap (PermenPANRB 62/2018), penanda terlambat, instansi penanggung jawab, riwayat, konfirmasi pelapor. |
 | **Cek Hak Subsidi** | Cek kelayakan berdasarkan Permentan 15/2025 jo. 3/2026 dan panduan daftar lewat penyuluh ke e-RDKK. Tidak menyimpan data. |
